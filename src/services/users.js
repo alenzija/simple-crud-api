@@ -1,4 +1,6 @@
-const users = [];
+import {v4 as uuidv4 } from 'uuid';
+
+import { users } from '../db/users.js';
 
 export const resolveUsers = async (req, res) => {
   try {
@@ -31,7 +33,7 @@ const createUser = async (req, res) => {
   req.on('end', async () => {
       const userData = requestBody;
       const { name, email } = JSON.parse(userData);
-      const newUser = { id: users.length + 1, name, email };
+      const newUser = { id: uuidv4(), name, email };
       users.push(newUser);
       res.writeHead(201, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(newUser));
