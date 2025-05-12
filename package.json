@@ -8,7 +8,8 @@
   "scripts": {
     "build": "npx tsc",
     "start:prod": "npm run build & node dist/index.js",
-    "start:dev": "nodemon --esm src/index.ts"
+    "start:dev": "nodemon --esm src/index.ts",
+    "test": "npx vitest"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +19,8 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.1.3"
   }
 }

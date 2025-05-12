@@ -21,4 +21,4 @@ const server = createServer((req, res) => {
   
 });
 
-server.listen(port);
+export default server.listen(port);

@@ -7,11 +7,14 @@ export const resolveUserId = (req: IncomingMessage, res: ServerResponse<Incoming
     if (!id) {
       return;
     }
-      if (!/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(id)) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(`User's id is invalid`);
-        return;
-      }
+
+    const isValidUserId = /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(id);
+
+    if (!isValidUserId) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(`User's id is invalid`);
+      return;
+    }
     if (req.method === 'GET') {
       getUser(res, id);
     } else if (req.method === 'PUT') {

@@ -3,12 +3,12 @@ import {v4 as uuidv4 } from 'uuid';
 
 import { users } from '../db/users';
 
-export const resolveUsers = async (req: IncomingMessage, res: ServerResponse) => {
+export const resolveUsers = (req: IncomingMessage, res: ServerResponse) => {
   try {
     if (req.method === 'GET') {
-      await getUsers(req, res);
+      getUsers(req, res);
     } else if (req.method === 'POST') {
-      await createUser(req, res);
+      createUser(req, res);
     } else {
         res.writeHead(405, { 'Content-Type': 'text/plain' });
         res.end('Method Not Allowed');
@@ -20,12 +20,12 @@ export const resolveUsers = async (req: IncomingMessage, res: ServerResponse) =>
   }
 }
 
-const getUsers = async (_: IncomingMessage, res: ServerResponse) => {
+export const getUsers = (_: IncomingMessage, res: ServerResponse) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(users));
 }
 
-const createUser = async (req: IncomingMessage, res: ServerResponse) => {
+export const createUser = (req: IncomingMessage, res: ServerResponse) => {
   let requestBody = '';
   req.on('data', (chunk) => {
       requestBody += chunk.toString();
