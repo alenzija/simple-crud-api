@@ -1,8 +1,12 @@
-import { setUsers, users } from "../db/users.js";
+import { type ServerResponse, type IncomingMessage } from "node:http";
+import { setUsers, users } from "../db/users";
 
-export const resolveUserId = (req, res) => {
+export const resolveUserId = (req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
   try {
-    const id = req.url.split('/').pop();
+    const id = req.url?.split('/').pop();
+    if (!id) {
+      return;
+    }
       if (!/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(id)) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(`User's id is invalid`);
@@ -19,13 +23,13 @@ export const resolveUserId = (req, res) => {
       res.end('Method Not Allowed');
     }
   } catch (e) {
-    console.error(e.message);
+    console.error(e);
     res.writeHead(500, { 'Content-Type': 'text/plain' });
     res.end('Something went wrong');
   }
 }
 
-const getUser = async (res, id) => {
+const getUser = async (res: ServerResponse, id: string) => {
   const user = users.find((user) => user.id === id);
   if (user) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -36,8 +40,8 @@ const getUser = async (res, id) => {
   }
 };
 
-const updateUser = async (req, res) => {
-  const id = req.url.split('/').pop();
+const updateUser = async (req: IncomingMessage, res: ServerResponse) => {
+  const id = req.url?.split('/').pop();
   let requestBody = '';
   req.on('data', (chunk) => {
       requestBody += chunk.toString();
@@ -72,7 +76,7 @@ const updateUser = async (req, res) => {
   });
 }
 
-const deleteUser = async (res, id) => {
+const deleteUser = async (res: ServerResponse, id: string) => {
   const user = users.find((user) => user.id === id);
   if (user) {
     setUsers(users.filter((user) => user.id !== id));

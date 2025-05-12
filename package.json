@@ -5,14 +5,19 @@
   "engines": {
     "node": ">=22.14.0"
   },
-  "type": "module",
-  "main": "index.js",
   "scripts": {
-    "start": "node --watch ./src/index.js"
+    "build": "npx tsc",
+    "start:prod": "npm run build & node dist/index.js",
+    "start:dev": "nodemon --esm src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^22.15.17",
+    "nodemon": "^3.1.10",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }

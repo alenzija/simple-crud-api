@@ -1,8 +1,6 @@
 import { createServer } from 'node:http';
-import { usersMatch } from './routes/usersMatch.js';
-import { userIdMatch } from './routes/userId.js';
-import { resolveUsers } from './services/users.js';
-import { resolveUserId } from './services/userId.js';
+import { usersMatch, userIdMatch } from './routes';
+import { resolveUsers, resolveUserId } from './services';
 
 const port = process.env.PORT || 3000;
 
