@@ -1,0 +1,26 @@
+{
+  "name": "simple-crud-api",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "start:prod": "npm run build & node dist/index.js",
+    "start:dev": "nodemon --esm src/index.ts",
+    "test": "npx vitest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^22.15.17",
+    "nodemon": "^3.1.10",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.1.3"
+  }
+}
